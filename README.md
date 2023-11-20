@@ -1,39 +1,63 @@
 # EPFL search plugins
-A collection of search plugins for [EPFL](https://www.epfl.ch) using [OpenSearch](https://en.wikipedia.org/wiki/OpenSearch) (supported by Firefox, Internet Explorer and Google Chrome) hosted on [Mycroft](http://mycroftproject.com/search-engines.html?name=EPFL) website.
 
-## EPFL BEAST
-Books, Ebooks and Articles Search Tool
-* http://mycroftproject.com/search-engines.html?name=EPFL+BEAST
-* Name (id): epfl-beast (78421)
+A collection of search plugins for [EPFL](https://www.epfl.ch) using
+[OpenSearch](https://en.wikipedia.org/wiki/OpenSearch) hosted on GitHub pages.
 
-## EPFL Infoscience
-* http://mycroftproject.com/search-engines.html?name=EPFL+Infoscience
-* Name (id): epfl-infoscience (78401)
+Please read the [MDN](https://developer.mozilla.org/en-US/docs/Web/OpenSearch)
+documentation.
 
-## EPFL Map
-* http://mycroftproject.com/search-engines.html?name=EPFL+Map
-* Name (id): epfl-map (78396)
-* http://mycroftproject.com/search-engines.html?name=EPFL+Map+%28old%29
-* Name (id): epfl-map-old (78406)
+Theses plugins were hosted on http://mycroftproject.com, but it become more
+difficult to manage them, so this repository was created.
 
-## EPFL Network
-* http://mycroftproject.com/search-engines.html?name=EPFL+Network
-* Name (id): epfl_network (34701)
+Last but not least, the auto-discovery of OpenSearch is no longer working with 
+Google Chrome (see this
+[stackoverflow](https://stackoverflow.com/questions/56400952/does-chrome-allow-auto-discovery-of-opensearch)).
 
-## EPFL People
-* http://mycroftproject.com/search-engines.html?name=EPFL+People
-* Name (id): epfl_search_people (53046)
 
-## EPFL Search
-* http://mycroftproject.com/search-engines.html?name=EPFL+Search
-* Name (id): search_epfl (34702)
-* http://mycroftproject.com/search-engines.html?name=EPFL+Outils+de+recherche+%28FR%29
-* Name (id): search_epfl_fr (34703)
+## Add / Generate plugins
 
-## EPFL Service Now
-* http://mycroftproject.com/search-engines.html?name=EPFL+ServiceNow
-* Name (id): epfl-servicenow (72286)
+While it sould be built on push with GitHub actions (WIP), you can generate 
+the plugins' XML files and the HTML that reference them by end, running 
 
-## EPFL Units
-* http://mycroftproject.com/search-engines.html?name=Unit%C3%A9s+EPFL
-* Name (id): epfl-orgs-en (93741)
+```bash
+node index.js
+```
+
+It take data from [list.json](./list.json) and output plugins XML files in the
+[opensearch](./opensearch) directory.
+
+:warning: when adding a new plugin, you have to add the corresponding icons in
+the [img](./img) repository. See the [Icons](#icons) section of this document.
+
+
+## Plugins list
+
+The plugins list stand in the [list.json](./list.json) file. When adding a new
+search plugin, `name`, `shortName`, `description`, `contact`, `image`, 
+`searchURL` and `searchQueryURL` have to be set.
+
+
+## Icons
+
+> When possible, search engines should offer a 16x16 image of type
+> "image/x-icon" or "image/vnd.microsoft.icon" (the Microsoft ICO format) and a
+> 64x64 image of type "image/jpeg" or "image/png".
+
+Each icons of this repo has a "epfl-search-service.svg" image, in the
+[img](./img) directory. Use this [svg] image to generate the 16×16 image of
+type `image/x-icon` and a 64×64 image of `image/png`. It's pretty easy with
+[imagemagick]: 
+
+```bash
+convert -background transparent -resize 16 epfl-search-service.svg epfl-search-service.ico
+
+convert -background transparent -resize 64 epfl-search-service.svg epfl-search-service.png
+```
+
+You can use [epfl-search-tempalte.svg](./img/epfl-search-tempalte.svg) as
+template to create new search plugins.
+
+
+
+
+[imagemagick]: https://imagemagick.org
